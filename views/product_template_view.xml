@@ -21,7 +21,7 @@
                 <field name="qty_available_with_analogs" readonly="1"/>
             </xpath>
             
-            <xpath expr="//page[@name='inventory']" position="after">
+            <xpath expr="//notebook" position="inside">
                 <page name="dino_analogs" string="Аналоги (Dino Stock)" invisible="[('apply_analogs', '!=', True)]">
                     <group>
                         <field name="analog_ids" widget="many2many_tags"/>
