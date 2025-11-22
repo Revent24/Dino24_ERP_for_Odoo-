@@ -1,3 +1,7 @@
+#
+# --- /dino_erp_stock/__manifest__.py ---
+#
+
 {
     'name': "Dino ERP Stock: Кастомный Склад",
     'summary': "Модуль для внедрения логики 'Склада' из презентации.",
@@ -14,7 +18,9 @@
     # Файлы, которые будут загружены в базу при установке. Порядок важен!
     'data': [
         'security/ir.model.access.csv', 
+        'views/product_origin_type_view.xml',
         'views/product_template_view.xml', 
+        'views/product_category_view.xml',
     ],
     'installable': True,
     'application': True,

@@ -1,10 +1,59 @@
+# -*- coding: utf-8 -*-
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    # --- Поля Себестоимости и Запасов ---
+    # --- СВЯЗЬ С ПРОИСХОЖДЕНИЕМ (УСТРАНЕНИЕ KEYERROR) ---
+    
+    # НОВОЕ RELATED ПОЛЕ. Ссылается на related-поле в product.category,
+    # которое берет код из product.origin.type.
+    dino_origin_type_code = fields.Char(
+        related='categ_id.dino_origin_type_code', 
+        string="Технический код происхождения",
+        readonly=True,
+        store=True,
+        help="Технический код происхождения, необходимый для логики."
+    )
+    
+    # --- НОВЫЕ ПОЛЯ ДЛЯ ЦЕНООБРАЗОВАНИЯ И ЗАПАСОВ ---
+    
+    calculated_cost_incl_tax = fields.Float(
+        string="Расчетная себестоимость с НДС",
+        digits='Product Price',
+        compute='_compute_cost_fields',
+        store=True,
+        help="Расчетная себестоимость с учетом НДС (зависит от настроек Категории)."
+    )
+    
+    dino_markup_type = fields.Selection([
+        ('percent', 'Процент'),
+        ('amount', 'Фиксированная сумма'),
+        ('none', 'Не применять'),
+    ],
+        string="Тип надбавки",
+        default='none',
+        required=True,
+        help="Определяет, как будет рассчитываться надбавка к себестоимости."
+    )
+    
+    dino_markup_percent = fields.Float(
+        string="Надбавка (%)",
+        digits=(6, 2),
+    )
+    
+    dino_markup_amount = fields.Float(
+        string="Надбавка (Сумма)",
+        digits='Product Price',
+    )
+    
+    min_order_qty = fields.Float(
+        string="Минимальный заказ (Dino)",
+        help="Минимальное количество, которое необходимо закупить/произвести для восполнения запаса.",
+    )
+
+    # --- СУЩЕСТВУЮЩИЕ ПОЛЯ И ЛОГИКА ---
     
     calculated_cost = fields.Float(
         string="Расчетная себестоимость (BOM)",
@@ -41,17 +90,11 @@ class ProductTemplate(models.Model):
         help="Отмечено, если суммарный запас (с аналогами) ниже неснижаемого остатка."
     )
 
-    # --- Поля для Аналогов (Обновлено) ---
-    
-    # НОВЫЙ ФЛАГ: Управляет видимостью вкладки и домена
     apply_analogs = fields.Boolean(
         string="Применить аналоги",
         default=False,
-        help="Отметьте, если для этого товара может быть утвержден список аналогов. "
-             "Контролирует видимость вкладки и домен выбора."
+        help="Отметьте, если для этого товара может быть утвержден список аналогов."
     )
-    
-    # Старое поле 'is_analog' удалено.
     
     analog_ids = fields.Many2many(
         'product.template',
@@ -59,25 +102,21 @@ class ProductTemplate(models.Model):
         'template_id',
         'analog_id',
         string="Аналогичные товары",
-        # ДОМЕН: 1. Товары той же категории. 2. Товары, которые сами не имеют аналогов.
         domain="['&', ('categ_id', '=', categ_id), ('apply_analogs', '=', False)]",
         help="Список товаров, которые могут быть использованы как аналоги."
     )
-    
+
     # ----------------------------------------------------------------------------------------
     # ЛОГИКА РАСЧЕТА ЗАПАСОВ С АНАЛОГАМИ
     # ----------------------------------------------------------------------------------------
     
     @api.depends('qty_available', 'analog_ids.qty_available')
     def _compute_qty_with_analogs(self):
-        """Рассчитывает суммарное количество основного товара и его утвержденных аналогов."""
+        # ... (логика без изменений)
         for product in self:
             total_qty = product.qty_available
-            
-            # Добавляем доступное количество всех утвержденных аналогов
             for analog in product.analog_ids:
                 total_qty += analog.qty_available
-                
             product.qty_available_with_analogs = total_qty
 
     # ----------------------------------------------------------------------------------------
@@ -86,33 +125,43 @@ class ProductTemplate(models.Model):
 
     @api.depends('min_qty', 'qty_available_with_analogs')
     def _compute_purchase_required(self):
-        """Проверяет, требуется ли закупка на основе суммарного запаса и неснижаемого остатка."""
+        # ... (логика без изменений)
         for product in self:
-            # Проверка выполняется, только если товар использует аналоги И имеет установленный остаток
             if product.apply_analogs and product.min_qty > 0:
-                # Требуется закупка, если суммарный запас ниже неснижаемого остатка
                 product.purchase_required = product.qty_available_with_analogs < product.min_qty
             else:
                 product.purchase_required = False
 
     def _search_purchase_required(self, operator, value):
-        """Метод поиска для поля 'purchase_required'."""
-        # (Оставлю здесь как заглушку, поскольку это сложный метод для реального использования в Odoo)
+        # ... (заглушка без изменений)
         return [(0, '=', 1)] 
             
     # ----------------------------------------------------------------------------------------
     # ЛОГИКА РАСЧЕТА СЕБЕСТОИМОСТИ (ПЛОСКАЯ ЛОГИКА)
     # ----------------------------------------------------------------------------------------
     
-    @api.depends('bom_ids', 'bom_ids.bom_line_ids.product_id.standard_price')
+    @api.depends('bom_ids', 'bom_ids.bom_line_ids.product_id.standard_price', 'categ_id.dino_origin_type_code')
     def _compute_cost_fields(self):
-        """Временная плоская логика расчета себестоимости."""
+        """Расчет себестоимости, теперь с учетом типа происхождения."""
         for product in self:
-            if product.bom_ids:
-                product.calculated_cost = sum(
-                    line.product_id.standard_price * line.product_qty
-                    for bom in product.bom_ids
-                    for line in bom.bom_line_ids
-                )
-            else:
-                product.calculated_cost = 0.0
+            cost = 0.0
+            
+            # 1. Расчет себестоимости по BOM (только для Manufactured)
+            if product.dino_origin_type_code in ('subcontract', 'internal_assembly', 'finished_good'):
+                if product.bom_ids:
+                    cost = sum(
+                        line.product_id.standard_price * line.product_qty
+                        for bom in product.bom_ids
+                        for line in bom.bom_line_ids
+                    )
+                
+            # 2. Для Purchase/Kit/Service: используем стандартную цену
+            elif product.dino_origin_type_code in ('purchase', 'kit_component', 'service'):
+                 cost = product.standard_price
+            
+            # 3. Присвоение себестоимости без НДС
+            product.calculated_cost = cost
+            
+            # 4. Расчет себестоимости с НДС (ПОКА ПРОСТОЕ ПРИСВОЕНИЕ БЕЗ ЛОГИКИ НДС)
+            # Эту логику нужно будет уточнить (зависит от налоговой категории)
+            product.calculated_cost_incl_tax = cost
