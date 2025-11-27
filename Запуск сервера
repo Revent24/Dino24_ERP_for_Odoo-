@@ -9,10 +9,12 @@ source ~/OdooApps/odoo19-venv/bin/activate
 # 3. Перейти в папку Odoo
 cd ~/OdooApps/odoo19
 
+# 4. Запустить сервер
+python3 -m odoo server -d dino24_dev --addons-path=addons,../odoo_projects/dino24_addons --db_user=steve --http-port=8070
+
+
 # 4. Запустить сервер с принудительным обновлением модуля
 python3 -m odoo server -d dino24_dev -u dino_erp_stock --addons-path=addons,../odoo_projects/dino24_addons --db_user=steve --http-port=8070
-
-
 
 
 

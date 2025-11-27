@@ -8,21 +8,17 @@
     # ... остальные метаданные ...
     'version': '1.0',
 
-    # ОСТАВЛЯЕМ ТОЛЬКО ЭТОТ ОДИН БЛОК ЗАВИСИМОСТЕЙ
+    # ЗАВИСИМОСТИ
     'depends': [
-        'base', 
-        'stock',
-        'mrp', 
-        'sale',
+        'base', # база
+        'stock', # склад
+        'mrp', # управление запасами
     ],
 
     # Файлы, которые будут загружены в базу при установке. Порядок важен!
     'data': [
-        'security/ir.model.access.csv', 
-        'views/product_origin_type_view.xml',
-        'views/product_template_view.xml', 
-        'views/product_category_view.xml',
-        'views/product_template_action.xml',
+ 
+
     ],
     'installable': True,
     'application': True,
