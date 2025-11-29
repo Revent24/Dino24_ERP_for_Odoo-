@@ -6,7 +6,7 @@ from odoo import fields, models, _, api
 class DinoProductComponent(models.Model):
     _name = 'dino.product.component'
     _description = 'Dino Product Component'
-    _inherit = ['image.mixin', 'mail.thread'] 
+    _inherit = ['image.mixin', 'mail.thread', 'mail.activity.mixin'] 
 
     active = fields.Boolean('Active', default=True)
     
