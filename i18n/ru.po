@@ -1,0 +1,237 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* dino_erp_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20251116\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-29 01:15+0000\n"
+"PO-Revision-Date: 2025-11-29 01:15+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_needaction
+msgid "Action Needed"
+msgstr "Требует внимания"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__active
+msgid "Active"
+msgstr "Активно"
+
+#. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_product_component_view_form
+msgid "Add other fields here if needed."
+msgstr "Добавьте здесь другие поля, если нужно."
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_attachment_count
+msgid "Attachment Count"
+msgstr "Количество вложений"
+
+#. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_product_component_view_form
+msgid "Component"
+msgstr "Компонент"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/product_component.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__name
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_product_component_view_form
+msgid "Component Name"
+msgstr "Название компонента"
+
+#. module: dino_erp_stock
+#: model:ir.actions.act_window,name:dino_erp_stock.dino_product_component_action
+#: model:ir.ui.menu,name:dino_erp_stock.dino_product_component_menu
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_product_component_view_tree
+msgid "Components"
+msgstr "Компоненты"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/product_component.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__cost
+msgid "Cost"
+msgstr "Стоимость"
+
+#. module: dino_erp_stock
+#: model_terms:ir.actions.act_window,help:dino_erp_stock.dino_product_component_action
+msgid "Create a new component."
+msgstr "Создать новый компонент."
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__create_uid
+msgid "Created by"
+msgstr "Создал"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__create_date
+msgid "Created on"
+msgstr "Создано"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/product_component.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__currency_id
+msgid "Currency"
+msgstr "Валюта"
+
+#. module: dino_erp_stock
+#: model:ir.model,name:dino_erp_stock.model_dino_product_component
+msgid "Dino Product Component"
+msgstr "Компонент продукта Dino"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__display_name
+msgid "Display Name"
+msgstr "Отображаемое имя"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/product_component.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__is_favorite
+msgid "Favorite"
+msgstr "Избранное"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_follower_ids
+msgid "Followers"
+msgstr "Подписчики"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Подписчики (Партнеры)"
+
+#. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_product_component_view_form
+msgid "General Information"
+msgstr "Общая информация"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__has_message
+msgid "Has Message"
+msgstr "Есть сообщение"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__id
+msgid "ID"
+msgstr "ID"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,help:dino_erp_stock.field_dino_product_component__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Если отмечено, новые сообщения требуют вашего внимания."
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,help:dino_erp_stock.field_dino_product_component__message_has_error
+#: model:ir.model.fields,help:dino_erp_stock.field_dino_product_component__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Если отмечено, некоторые сообщения имеют ошибку доставки."
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__image_1920
+msgid "Image"
+msgstr "Изображение"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__image_1024
+msgid "Image 1024"
+msgstr "Изображение 1024"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__image_128
+msgid "Image 128"
+msgstr "Изображение 128"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__image_256
+msgid "Image 256"
+msgstr "Изображение 256"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__image_512
+msgid "Image 512"
+msgstr "Изображение 512"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/product_component.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__code
+msgid "Internal Reference"
+msgstr "Внутренняя ссылка"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_is_follower
+msgid "Is Follower"
+msgstr "Подписчик"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__write_uid
+msgid "Last Updated by"
+msgstr "Последний раз обновил"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__write_date
+msgid "Last Updated on"
+msgstr "Последнее обновление"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_has_error
+msgid "Message Delivery error"
+msgstr "Ошибка доставки сообщения"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_ids
+msgid "Messages"
+msgstr "Сообщения"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Количество действий"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_has_error_counter
+msgid "Number of errors"
+msgstr "Количество ошибок"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,help:dino_erp_stock.field_dino_product_component__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Количество сообщений, требующих действия"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,help:dino_erp_stock.field_dino_product_component__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Количество сообщений с ошибкой доставки"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/product_component.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__qty_available
+msgid "On Hand"
+msgstr "В наличии"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Ошибка доставки SMS"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_product_component__website_message_ids
+msgid "Website Messages"
+msgstr "Сообщения с сайта"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,help:dino_erp_stock.field_dino_product_component__website_message_ids
+msgid "Website communication history"
+msgstr "История общения с сайта"
