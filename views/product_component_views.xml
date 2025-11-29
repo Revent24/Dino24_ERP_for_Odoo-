@@ -52,7 +52,9 @@
                     </group>
                     <notebook>
                         <page name="general" string="General Information">
-                            <p>Add other fields here if needed.</p>
+                            <group name="internal_notes" string="Internal Notes">
+                                <field name="description" nolabel="1" colspan="2" placeholder="This note is only for internal purposes."/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

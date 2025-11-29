@@ -29,3 +29,6 @@ class DinoProductComponent(models.Model):
     def toggle_is_favorite(self):
         for rec in self:
             rec.is_favorite = not rec.is_favorite
+
+    # Добавляем поле заметок (Text для простого текста, translate=True для перевода самого текста заметки)
+    description = fields.Html(string=_('Internal Notes'), translate=True)

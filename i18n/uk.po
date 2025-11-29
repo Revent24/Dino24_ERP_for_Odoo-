@@ -235,3 +235,11 @@ msgstr "Повідомлення з веб-сайту"
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_product_component__website_message_ids
 msgid "Website communication history"
 msgstr "Історія спілкування з веб-сайту"
+
+#. module: dino_erp_stock
+msgid "Internal Notes"
+msgstr "Внутрішні примітки"
+
+#. module: dino_erp_stock
+msgid "This note is only for internal purposes."
+msgstr "Ця примітка призначена лише для внутрішніх цілей."
