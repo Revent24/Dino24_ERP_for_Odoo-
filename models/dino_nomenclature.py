@@ -17,6 +17,9 @@ class DinoNomenclature(models.Model):
     # Родитель (Семейство)
     component_id = fields.Many2one('dino.component', string=_('Component Family'), required=True, ondelete='cascade', tracking=True)
     
+    # Категория родителя
+    category_id = fields.Many2one(related='component_id.category_id', string=_('Category'), readonly=True, store=True)
+
     # Единица измерения (берется от родителя, только чтение)
     uom_id = fields.Many2one(related='component_id.uom_id', string=_('Unit of Measure'), readonly=True)
 
@@ -99,5 +102,68 @@ class DinoNomenclature(models.Model):
         # Артикул должен быть уникальным во всей системе
         ('code_unique', 'unique (code)', 'The Reference must be unique!'),
     ]
+
+
+
+    # === SMART BUTTONS LOGIC ===
+    
+    # 1. Счетчик строк спецификации
+    bom_count = fields.Integer(compute='_compute_bom_count')
+
+    @api.depends('bom_line_ids')
+    def _compute_bom_count(self):
+        for rec in self:
+            rec.bom_count = len(rec.bom_line_ids)
+
+    # Действие: Открыть BOM на весь экран
+    def action_view_bom(self):
+        self.ensure_one()
+        return {
+            'name': _('Bill of Materials'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'dino.bom.line',
+            'view_mode': 'list,form',
+            'domain': [('parent_nomenclature_id', '=', self.id)], # Показываем строки ЭТОЙ номенклатуры
+            'context': {'default_parent_nomenclature_id': self.id}, # При создании новой строки подставляем родителя
+        }
+
+    # 1. Счетчик "Где используется"
+    used_in_count = fields.Integer(string="Used In Count", compute='_compute_used_in_count')
+
+    def _compute_used_in_count(self):
+        for rec in self:
+            # Ищем строки BOM, где в списке аналогов (nomenclature_ids) есть наш ID
+            lines = self.env['dino.bom.line'].search([('nomenclature_ids', 'in', rec.id)])
+            # Берем уникальных владельцев этих строк
+            parents = lines.mapped('parent_nomenclature_id')
+            rec.used_in_count = len(parents)
+
+    # Действие для кнопки "Где используется"
+    def action_view_used_in(self):
+        self.ensure_one()
+        # Находим те же записи
+        lines = self.env['dino.bom.line'].search([('nomenclature_ids', 'in', self.id)])
+        parent_ids = lines.mapped('parent_nomenclature_id').ids
+        
+        return {
+            'name': _('Used In'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'dino.nomenclature',
+            'view_mode': 'list,form',
+            'domain': [('id', 'in', parent_ids)], # Фильтр: показать только родителей
+            'context': {'create': False},          # Запрещаем создавать там лишнее
+        }
+
+    # 2. Действие для кнопки "Родитель (Семейство)"
+    def action_view_parent(self):
+        self.ensure_one()
+        return {
+            'name': _('Component Family'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'dino.component',
+            'res_id': self.component_id.id, # ID нашего родителя
+            'view_mode': 'form',
+            'target': 'current',
+        }
 
 # --- END ---

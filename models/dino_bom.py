@@ -7,6 +7,10 @@ from odoo import fields, models, _, api
 class DinoBomLine(models.Model):
     _name = 'dino.bom.line'
     _description = 'BOM Line'
+    _order = 'sequence, id'  # <-- Сначала ручная сортировка, потом по ВID
+
+    # Поле для сортировки
+    sequence = fields.Integer(string=_('Sequence'), default=10)
 
     # 1. К кому относится эта строка (Владелец спецификации)
     parent_nomenclature_id = fields.Many2one('dino.nomenclature', string=_('Parent Nomenclature'), required=True, ondelete='cascade')
