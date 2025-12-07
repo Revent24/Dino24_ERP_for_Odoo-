@@ -79,16 +79,22 @@
 
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_parent" type="object" icon="fa-level-up" string="Family" invisible="not component_id"/>
-                        <button name="action_view_bom" type="object" icon="fa-flask"> 
+                        <button name="action_view_bom" type="object" icon="fa-flask" invisible="bom_count == 0"> 
                             <div class="o_stat_info">
                                 <field name="bom_count" class="o_stat_value"/>
                                 <span class="o_stat_text">BOM Lines</span>
                             </div>
                         </button>
-                        <button name="action_view_used_in" type="object" icon="fa-random">
+                        <button name="action_view_used_in" type="object" icon="fa-random" invisible="used_in_count == 0">
                             <div class="o_stat_info">
                                 <field name="used_in_count" class="o_stat_value"/>
                                 <span class="o_stat_text">Used In</span>
+                            </div>
+                        </button>
+                        <button name="action_view_supplier_prices" type="object" icon="fa-usd" class="oe_stat_button" invisible="supplier_line_count == 0">
+                            <div class="o_stat_info">
+                                <field name="supplier_line_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Prices</span>
                             </div>
                         </button>
                     </div>

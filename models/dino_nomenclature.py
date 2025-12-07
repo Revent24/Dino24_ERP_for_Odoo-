@@ -43,7 +43,7 @@ class DinoNomenclature(models.Model):
 
     # === ЭКОНОМИКА ===
     currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
-    cost = fields.Monetary(string=_('Cost'), currency_field='currency_id', default=0.0, tracking=True)
+    cost = fields.Monetary(string=_('Cost'), currency_field='currency_id', default=0.0, tracking=True, readonly=True, help="Automatically updated from latest purchase document")
     qty_available = fields.Float(string=_('On Hand'), default=0.0, tracking=True)
 
     # === ВЛОЖЕННЫЕ ТАБЛИЦЫ (Создадим модели для них на следующих шагах) ===
@@ -62,8 +62,36 @@ class DinoNomenclature(models.Model):
     # Внутренние заметки
     description = fields.Html(string=_('Internal Notes'), translate=True)
     
+    # === СВЯЗИ С ДОКУМЕНТАМИ ПОСТАВЩИКОВ ===
+    # Количество связанных позиций в документах поставщиков (для смарт-кнопки)
+    supplier_line_count = fields.Integer(compute='_compute_supplier_line_count')
     
     # === ЛОГИКА ===
+    
+    def _compute_supplier_line_count(self):
+        """Подсчитывает количество связанных позиций в документах поставщиков"""
+        for rec in self:
+            # Ищем в модуле operations, если он установлен
+            if 'dino.operation.document.specification' in self.env:
+                rec.supplier_line_count = self.env['dino.operation.document.specification'].search_count([
+                    ('nomenclature_id', '=', rec.id)
+                ])
+            else:
+                rec.supplier_line_count = 0
+    
+    def action_view_supplier_prices(self):
+        """Открывает список цен из документов поставщиков"""
+        self.ensure_one()
+        
+        return {
+            'name': _('Price History'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'dino.operation.document.specification',
+            'view_mode': 'list',
+            'view_id': self.env.ref('dino_erp_operations.view_specification_price_history_tree').id,
+            'domain': [('nomenclature_id', '=', self.id)],
+            'context': {'create': False, 'edit': False},
+        }
     
     # Автоматическая склейка имени
     @api.depends('component_id.name', 'name')
