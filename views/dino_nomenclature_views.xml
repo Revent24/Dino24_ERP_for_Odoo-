@@ -17,7 +17,7 @@
         <field name="name">dino.nomenclature.view.list</field>
         <field name="model">dino.nomenclature</field>
         <field name="arch" type="xml">
-            <list string="Nomenclature" create="true">
+            <list string="Nomenclature" create="true" multi_edit="1">
                 <field name="fullname"/>
                 <field name="purpose" optional="show"/>
                 <field name="code" optional="hide"/>

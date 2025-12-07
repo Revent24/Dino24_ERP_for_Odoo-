@@ -7,22 +7,26 @@
     <record id="view_nomenclature_quick_create_form" model="ir.ui.view">
         <field name="name">dino.nomenclature.form.quick.create</field>
         <field name="model">dino.nomenclature</field>
-        <field name="mode">primary</field>
-        <field name="priority">1</field>
+        <field name="priority">1000</field>
         <field name="arch" type="xml">
             <form string="Create Stock Item">
                 <group>
                     <separator string="Create Nomenclature Item" colspan="2"/>
                     
-                    <!-- Выбор/создание компонента (родителя) -->
+                    <!-- Выбор/создание компонента (родителя) - обязательно -->
                     <field name="component_id" 
                            string="Component (Family)"
                            required="1"/>
                     
-                    <!-- Название исполнения (модификация) - предзаполнено из контекста -->
+                    <!-- Дата создания - обязательно -->
+                    <field name="create_date" 
+                           string="Date"
+                           required="1"/>
+                    
+                    <!-- Название исполнения (модификация) - необязательно -->
                     <field name="name" 
                            string="Execution (Variant)"
-                           required="1"
+                           required="0"
                            placeholder="e.g. 16mm, Galvanized, 810mm, etc."/>
                     
                     <!-- Артикул (опционально) -->

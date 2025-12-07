@@ -11,9 +11,10 @@ class DinoNomenclature(models.Model):
     _rec_name = 'fullname' # Чтобы в ссылках отображалось полное имя
     _order = 'fullname'
 
-    active = fields.Boolean(default=True)
-
     # === СВЯЗИ ===
+    # Дата создания (обязательное поле, можно редактировать, без времени)
+    create_date = fields.Date(string=_('Created on'), required=True, default=fields.Date.context_today)
+    
     # Родитель (Семейство)
     component_id = fields.Many2one('dino.component', string=_('Component Family'), required=True, ondelete='cascade', tracking=True)
     
@@ -31,7 +32,8 @@ class DinoNomenclature(models.Model):
 
     # === НАИМЕНОВАНИЕ ===
     # Суффикс - уникальная характеристика этого исполнения (напр. "810 мм" или "Оцинкованный")
-    name = fields.Char(string=_('Execution Name'), required=True, tracking=True, translate=True)
+    # Необязательно для уникальных деталей без вариантов
+    name = fields.Char(string=_('Execution Name'), required=False, tracking=True, translate=True)
     
     # Полное имя = Родитель + Суффикс (напр. "Комплект ручек 810 мм")
     fullname = fields.Char(string=_('Full Name'), compute='_compute_fullname', store=True, index=True)
