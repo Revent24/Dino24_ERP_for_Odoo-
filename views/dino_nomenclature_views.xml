@@ -174,5 +174,33 @@
               action="dino_nomenclature_action"
               sequence="6"/>
 
+    <record id="action_dino_nomenclature_update_cost" model="ir.actions.server">
+        <field name="name">Update Cost (Recursive)</field>
+        <field name="model_id" ref="model_dino_nomenclature"/>
+        <field name="binding_model_id" ref="model_dino_nomenclature"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+# Запускаем рекурсию для всех выбранных записей
+for record in records:
+    record.action_update_cost_recursive()
+        </field>
+    </record>
+
+    <record id="dino_nomenclature_search" model="ir.ui.view">
+        <field name="name">dino.nomenclature.search</field>
+        <field name="model">dino.nomenclature</field>
+        <field name="arch" type="xml">
+            <search string="Nomenclature Search">
+                <field name="fullname"/>
+                <field name="code"/>
+                <separator/>
+                <filter string="Top Level Assemblies" 
+                        name="top_level" 
+                        domain="[('used_in_count', '=', 0), ('bom_line_ids', '!=', False)]"/>
+            </search>
+        </field>
+    </record>
+
 </data>
 </odoo>
