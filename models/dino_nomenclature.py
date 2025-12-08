@@ -49,7 +49,7 @@ class DinoNomenclature(models.Model):
     supplier_line_count = fields.Integer(compute='_compute_supplier_line_count')
     bom_count = fields.Integer(compute='_compute_bom_count')
     
-    # !!! ИСПРАВЛЕНИЕ: Добавлен search='_search_used_in_count'
+    # Поле поиска для фильтра "Top Level Assemblies"
     used_in_count = fields.Integer(string="Used In Count", compute='_compute_used_in_count', search='_search_used_in_count')
 
     # --- Smart Buttons Logic ---
@@ -65,13 +65,8 @@ class DinoNomenclature(models.Model):
             parents = lines.mapped('parent_nomenclature_id')
             rec.used_in_count = len(parents)
 
-    # !!! ИСПРАВЛЕНИЕ: Метод поиска для фильтра "Top Level Assemblies"
     def _search_used_in_count(self, operator, value):
-        """
-        Позволяет искать по полю used_in_count.
-        Ищет ID, которые используются в BOM.
-        """
-        # Получаем таблицу связи Many2many из модели BOM
+        """Позволяет искать по полю used_in_count (поиск ID, используемых в BOM)."""
         bom_line_model = self.env['dino.bom.line']
         if 'nomenclature_ids' not in bom_line_model._fields:
              return []
@@ -183,6 +178,42 @@ class DinoNomenclature(models.Model):
     def _compute_total_cost(self):
         for rec in self:
             rec.total_cost = rec.cost + rec.material_cost
+
+    def write(self, vals):
+        """
+        Переопределяем write, чтобы ловить изменение цены (cost).
+        Если цена меняется (например, из документа поступления), 
+        мы должны уведомить всех родителей.
+        """
+        result = super().write(vals)
+        
+        # Если изменилась Цена Закупки (cost)
+        if 'cost' in vals:
+            self._trigger_parents_recalc()
+            
+        return result
+
+    def _trigger_parents_recalc(self):
+        """
+        Находит все места, где используется эта номенклатура,
+        находит их самые верхние сборки (Roots) и запускает пересчет.
+        """
+        # 1. Находим строки BOM, где используется текущая номенклатура
+        usage_lines = self.env['dino.bom.line'].search([('nomenclature_ids', 'in', self.ids)])
+        
+        if not usage_lines:
+            return
+
+        # 2. Берем родителей этих строк
+        parents = usage_lines.mapped('parent_nomenclature_id')
+
+        # 3. Ищем КОРНИ (самые верхние изделия) для этих родителей
+        # Используем метод поиска корней из модели BOM
+        top_levels = self.env['dino.bom.line']._find_roots_from_nodes(parents)
+
+        # 4. Запускаем рекурсию сверху вниз
+        for nom in top_levels:
+            nom.action_update_cost_recursive()
 
     def action_update_cost_recursive(self):
         """
