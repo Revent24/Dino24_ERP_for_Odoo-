@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20251116\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-03 22:24+0000\n"
-"PO-Revision-Date: 2025-12-03 22:24+0000\n"
+"POT-Creation-Date: 2025-12-10 09:06+0000\n"
+"PO-Revision-Date: 2025-12-10 09:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,12 +18,17 @@ msgstr ""
 #. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
 msgid "<span class=\"o_stat_text\">BOM Lines</span>"
-msgstr "<span class=\"o_stat_text\">Специфікація</span>"
+msgstr "<span class=\"o_stat_text\">Рядки специфікації</span>"
+
+#. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
+msgid "<span class=\"o_stat_text\">Prices</span>"
+msgstr "<span class=\"o_stat_text\">Ціни</span>"
 
 #. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
 msgid "<span class=\"o_stat_text\">Used In</span>"
-msgstr "<span class=\"o_stat_text\">Використовується в</span>"
+msgstr "<span class=\"o_stat_text\">Використання</span>"
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_component__message_needaction
@@ -33,7 +38,6 @@ msgstr "Необхідна дія"
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_component__active
-#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__active
 msgid "Active"
 msgstr "Активно"
 
@@ -70,7 +74,7 @@ msgstr "Додати інструкції або примітки..."
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_component__message_attachment_count
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__message_attachment_count
 msgid "Attachment Count"
-msgstr "Кількість прикріплень"
+msgstr "Кількість вкладень"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -111,7 +115,7 @@ msgstr "Специфікація"
 #. module: dino_erp_stock
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__bom_count
 msgid "Bom Count"
-msgstr "Лічильник BOM"
+msgstr "Кількість рядків BOM"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -129,11 +133,6 @@ msgid "Code"
 msgstr "Код"
 
 #. module: dino_erp_stock
-#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_kanban
-msgid "Code:"
-msgstr "Код:"
-
-#. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/www/product_component_attribute.py:0
 #: code:addons/dino_erp_stock/www/product_component_bom.py:0
@@ -141,9 +140,14 @@ msgid "Component"
 msgstr "Компонент"
 
 #. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
+msgid "Component (Family)"
+msgstr "Компонент (Сімейство)"
+
+#. module: dino_erp_stock
 #: model:ir.actions.act_window,name:dino_erp_stock.dino_component_action
 msgid "Component Families"
-msgstr "Компоненти"
+msgstr "Сімейства компонентів"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -154,13 +158,19 @@ msgstr "Компоненти"
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__component_id
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_form
 msgid "Component Family"
-msgstr "Компонент"
+msgstr "Сімейство компонентів"
 
 #. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/www/product_component.py:0
 msgid "Component Name"
 msgstr "Назва компонента"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/dino_component.py:0
+msgid "Component with name \"%s\" already exists! Please use a unique name."
+msgstr "Компонент з назвою \"%s\" вже існує! Будь ласка, використовуйте унікальну назву."
 
 #. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
@@ -174,9 +184,7 @@ msgstr "Налаштування"
 
 #. module: dino_erp_stock
 #. odoo-python
-#: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 #: code:addons/dino_erp_stock/www/product_component.py:0
-#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__cost
 msgid "Cost"
 msgstr "Вартість"
 
@@ -186,14 +194,24 @@ msgid "Cost:"
 msgstr "Вартість:"
 
 #. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
+msgid "Create Nomenclature Item"
+msgstr "Створити номенклатуру"
+
+#. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
+msgid "Create Stock Item"
+msgstr "Створити складську позицію"
+
+#. module: dino_erp_stock
 #: model_terms:ir.actions.act_window,help:dino_erp_stock.dino_component_action
 msgid "Create a new Component Family."
-msgstr "Створити новий компонент."
+msgstr "Створити нове сімейство компонентів."
 
 #. module: dino_erp_stock
 #: model_terms:ir.actions.act_window,help:dino_erp_stock.dino_nomenclature_action
 msgid "Create a new Nomenclature item from Component Family."
-msgstr "Створити нову номенклатуру з картки Компонента."
+msgstr "Створити нову номенклатуру із сімейства компонентів."
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_bom_line__create_uid
@@ -204,6 +222,8 @@ msgid "Created by"
 msgstr "Створив"
 
 #. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_bom_line__create_date
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_component__create_date
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__create_date
@@ -218,10 +238,16 @@ msgid "Currency"
 msgstr "Валюта"
 
 #. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_form
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
+msgid "Date"
+msgstr "Дата"
+
+#. module: dino_erp_stock
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_nomenclature__origin_type
 #: model:ir.model.fields,help:dino_erp_stock.field_product_category__origin_type
 msgid "Defines the origin of the component family."
-msgstr "Визначає походження компонентів."
+msgstr "Визначає походження сімейства компонентів."
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,field_description:dino_erp_stock.field_product_category__dino_component_count
@@ -243,11 +269,16 @@ msgid "Display Name"
 msgstr "Назва для відображення"
 
 #. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
+msgid "Execution (Variant)"
+msgstr "Виконання (Варіант)"
+
+#. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__name
 msgid "Execution Name"
-msgstr "Виконання"
+msgstr "Назва виконання"
 
 #. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_form
@@ -262,16 +293,18 @@ msgid "Executions / Analogs"
 msgstr "Виконання / Аналоги"
 
 #. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/dino_component_category.py:0
 #: model:ir.ui.menu,name:dino_erp_stock.dino_component_menu_root
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_tree
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_product_category_form_inherit_dino
 msgid "Families"
-msgstr "Компоненти"
+msgstr "Сімейства"
 
 #. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
 msgid "Family"
-msgstr "Компонент"
+msgstr "Сімейство"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -279,7 +312,7 @@ msgstr "Компонент"
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_component__name
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_form
 msgid "Family Name"
-msgstr "Назва компонента"
+msgstr "Назва сімейства"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -305,7 +338,7 @@ msgstr "Підписники (Партнери)"
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_component__activity_type_icon
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_nomenclature__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Іконка Font awesome, наприклад, fa-tasks"
+msgstr "Іконка Font awesome, наприклад fa-tasks"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -347,7 +380,7 @@ msgstr "Іконка"
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_component__activity_exception_icon
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_nomenclature__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Значок, що позначає виключення дії."
+msgstr "Іконка для позначення виняткової дії."
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_component__message_needaction
@@ -408,7 +441,6 @@ msgstr "Артикул"
 
 #. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_form
-#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
 msgid "Internal notes..."
 msgstr "Внутрішні нотатки..."
 
@@ -422,7 +454,7 @@ msgstr "Підписник"
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_form
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_product_category_form_inherit_dino
 msgid "Items"
-msgstr "Виконання"
+msgstr "Позиції"
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_bom_line__write_uid
@@ -447,7 +479,6 @@ msgstr "Виробництво"
 
 #. module: dino_erp_stock
 #. odoo-python
-#: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 #: code:addons/dino_erp_stock/www/product_component.py:0
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__material_cost
 msgid "Material Cost"
@@ -522,6 +553,11 @@ msgid "Nomenclature Count"
 msgstr "Кількість номенклатур"
 
 #. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_search
+msgid "Nomenclature Search"
+msgstr "Пошук номенклатури"
+
+#. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/models/dino_component.py:0
 #: code:addons/dino_erp_stock/models/dino_component_category.py:0
@@ -546,7 +582,7 @@ msgstr "Кількість помилок"
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_component__message_needaction_counter
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_nomenclature__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "Кількість повідомлень, що вимагають дії"
+msgstr "Кількість повідомлень, що потребують дії"
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_component__message_has_error_counter
@@ -569,11 +605,6 @@ msgid "On Hand"
 msgstr "В наявності"
 
 #. module: dino_erp_stock
-#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_kanban
-msgid "On Hand:"
-msgstr "В наявності:"
-
-#. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_bom_line_view_tree
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_component_view_form
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
@@ -581,11 +612,19 @@ msgid "Open"
 msgstr "Відкрити"
 
 #. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
+msgid "Optional"
+msgstr "Опціонально"
+
+#. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_product_category_form_inherit_dino
 msgid "Origin"
 msgstr "Походження"
 
 #. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/dino_component_category.py:0
+#: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__origin_type
 #: model:ir.model.fields,field_description:dino_erp_stock.field_product_category__origin_type
 msgid "Origin Type"
@@ -626,6 +665,17 @@ msgid "Parent Nomenclature"
 msgstr "Батьківська номенклатура"
 
 #. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
+msgid "Price History"
+msgstr "Історія цін"
+
+#. module: dino_erp_stock
+#: model:ir.model.fields,help:dino_erp_stock.field_dino_nomenclature__cost
+msgid "Price from latest purchase document"
+msgstr "Ціна з останнього документа закупівлі"
+
+#. module: dino_erp_stock
 #: model:ir.model,name:dino_erp_stock.model_product_category
 msgid "Product Category"
 msgstr "Категорія товару"
@@ -633,7 +683,14 @@ msgstr "Категорія товару"
 #. module: dino_erp_stock
 #: model:ir.model.fields.selection,name:dino_erp_stock.selection__product_category__origin_type__purchase
 msgid "Purchase"
-msgstr "Купівля"
+msgstr "Закупівля"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__cost
+msgid "Purchase Price"
+msgstr "Ціна закупівлі"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -651,9 +708,16 @@ msgid "Quantity"
 msgstr "Кількість"
 
 #. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_component__rating_ids
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__rating_ids
+msgid "Ratings"
+msgstr "Оцінки"
+
+#. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__code
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
 msgid "Reference"
 msgstr "Артикул"
 
@@ -693,7 +757,7 @@ msgstr "Обрані аналоги"
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_bom_line__sequence
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_parameter__sequence
 msgid "Sequence"
-msgstr "Порядок"
+msgstr "Послідовність"
 
 #. module: dino_erp_stock
 #: model:ir.model.fields.selection,name:dino_erp_stock.selection__product_category__origin_type__service
@@ -738,20 +802,32 @@ msgid "Subtotal"
 msgstr "Підсумок"
 
 #. module: dino_erp_stock
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__supplier_line_count
+msgid "Supplier Line Count"
+msgstr "Кількість рядків постачальника"
+
+#. module: dino_erp_stock
 #: model:ir.model,name:dino_erp_stock.model_dino_parameter
 msgid "Technical Parameter"
 msgstr "Технічний параметр"
 
 #. module: dino_erp_stock
-#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
-msgid "Technical Parameters"
-msgstr "Технічні параметри"
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_search
+msgid "Top Level Assemblies"
+msgstr "Верхньорівневі збірки"
+
+#. module: dino_erp_stock
+#. odoo-python
+#: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
+#: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__total_cost
+msgid "Total Cost"
+msgstr "Загальна вартість"
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_component__activity_exception_decoration
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_nomenclature__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Тип виключення дії в записі."
+msgstr "Тип виняткової дії в записі."
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -784,6 +860,11 @@ msgid "Units"
 msgstr "Одиниці"
 
 #. module: dino_erp_stock
+#: model:ir.actions.server,name:dino_erp_stock.action_dino_nomenclature_update_cost
+msgid "Update Cost (Recursive)"
+msgstr "Оновити вартість (Рекурсивно)"
+
+#. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 msgid "Used In"
@@ -792,7 +873,7 @@ msgstr "Використовується в"
 #. module: dino_erp_stock
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__used_in_count
 msgid "Used In Count"
-msgstr "Використовується в (к-сть)"
+msgstr "Кількість використань"
 
 #. module: dino_erp_stock
 #. odoo-python
@@ -817,31 +898,36 @@ msgstr "Значення"
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_component__website_message_ids
 #: model:ir.model.fields,field_description:dino_erp_stock.field_dino_nomenclature__website_message_ids
 msgid "Website Messages"
-msgstr "Повідомлення з веб-сайту"
+msgstr "Повідомлення веб-сайту"
 
 #. module: dino_erp_stock
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_component__website_message_ids
 #: model:ir.model.fields,help:dino_erp_stock.field_dino_nomenclature__website_message_ids
 msgid "Website communication history"
-msgstr "Історія спілкування з веб-сайту"
+msgstr "Історія спілкування на сайті"
 
 #. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/models/dino_component_category.py:0
 msgid "category_id"
-msgstr "id категорії"
+msgstr ""
 
 #. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/models/dino_component.py:0
 msgid "component_id"
-msgstr "id компонента"
+msgstr ""
 
 #. module: dino_erp_stock
 #. odoo-python
 #: code:addons/dino_erp_stock/models/dino_component_category.py:0
 msgid "component_id.category_id"
-msgstr "Категорія"
+msgstr ""
+
+#. module: dino_erp_stock
+#: model_terms:ir.ui.view,arch_db:dino_erp_stock.view_nomenclature_quick_create_form
+msgid "e.g. 16mm, Galvanized, 810mm, etc."
+msgstr "напр. 16мм, Оцинкований, 810мм тощо."
 
 #. module: dino_erp_stock
 #: model_terms:ir.ui.view,arch_db:dino_erp_stock.dino_nomenclature_view_form
@@ -858,7 +944,7 @@ msgstr "напр. Гвинт M4"
 #: code:addons/dino_erp_stock/models/dino_bom.py:0
 #: code:addons/dino_erp_stock/models/dino_nomenclature.py:0
 msgid "id"
-msgstr "id"
+msgstr "ID"
 
 #. module: dino_erp_stock
 #. odoo-python
