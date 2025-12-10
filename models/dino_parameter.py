@@ -8,6 +8,7 @@ class DinoParameter(models.Model):
     _name = 'dino.parameter'
     _description = 'Technical Parameter'
     _order = 'sequence, id'
+    _inherit = ['mixin.auto.translate']
 
     # Привязка к конкретному исполнению
     nomenclature_id = fields.Many2one('dino.nomenclature', string=_('Nomenclature'), required=True, ondelete='cascade')

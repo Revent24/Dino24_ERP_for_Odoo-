@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 class DinoComponent(models.Model):
     _name = 'dino.component'
     _description = 'Component Family'
-    _inherit = ['image.mixin', 'mail.thread', 'mail.activity.mixin']
+    _inherit = ['image.mixin', 'mail.thread', 'mail.activity.mixin', 'mixin.auto.translate']
 
     active = fields.Boolean(default=True)
     name = fields.Char(string=_('Family Name'), required=True, translate=True, tracking=True)

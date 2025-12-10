@@ -6,7 +6,7 @@ from odoo import fields, models, _, api
 class DinoNomenclature(models.Model):
     _name = 'dino.nomenclature'
     _description = 'Nomenclature (Variant/Execution)'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread', 'mail.activity.mixin', 'mixin.auto.translate']
     _rec_name = 'fullname'
     _order = 'fullname'
 
